@@ -1,0 +1,20 @@
+{
+  "name": "learning-vue3",
+  "version": "1.0.0",
+  "description": "## from vue 2 to vue 3: composition API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pdf": "pretty-md-pdf -i README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yann-yinn/learning-vue3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yann-yinn/learning-vue3/issues"
+  },
+  "homepage": "https://github.com/yann-yinn/learning-vue3#readme"
+}

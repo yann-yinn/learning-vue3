@@ -1,105 +1,25 @@
-# learning-vue3
-from vue 2 to vue 3: composition API
+# De Vue 2 à Vue 3: la composition API
 
-```js
-<template>
-  <div v-if="user">
-    You are already logged-in !
-    <div><button @click="handleLogout">Logout</button></div>
-    <pre>{{ user }}</pre>
-  </div>
-  <div v-else>
-    <form @submit="handleSubmit">
-      <div>
-        <input v-model="fields.identifier.value.value" type="text" />
-        <div style="color: red">{{ form.errors.value.identifier }}</div>
-      </div>
-      <div>
-        <input v-model="fields.password.value.value" type="password" />
-        <div style="color: red">{{ form.errors.value.password }}</div>
-      </div>
-      <div>
-        <input
-          :disabled="submitButtonIsDisabled()"
-          type="submit"
-          :value="submitButtonValue()"
-        />
-      </div>
-    </form>
-  </div>
-</template>
+Ce guide en français est destiné aux personnes qui connaissent Vue 2 et souhaitent apprendre la composition API de vue 3, qui est la fonctionnalité la plus importante et impactante en terme d'organisation du code. Si vous êtes en train d'apprendre Vue 3 sans avoir appris Vue 2, ce guide vous sera probablement utile également. La composition API permet de faire tout ce que l'on faisait en Vue 2 avec l'option API
 
-<script>
-import { ref } from "vue";
-import useRequest from "@/use/request";
-import { useForm, useField } from "vee-validate";
-import { localLogin, localLogout, getUser } from "@/utils/auth";
+## table des matières
 
-export default {
-  setup() {
-    const user = ref(getUser());
-    const loginRequest = useRequest();
+- Composition API est un ajout, l'option API existe toujours
+- Qu'est ce que l'option API de vue 2 ?
+- Qu'est ce que la composition API de vue 3 ?
+- Récupérer des données depuis une API avec la composition API de vue 3
+- créer des variables réactives
+  - ref
+  - reactive
+  - faut-il utiliser ref ou reactive ?
+  - attention au desctructuring() !!
+- methods
+- computed methods
+- Les hooks de cycle de vie
+- watch et watchEffect
 
-    const form = useForm({
-      initialValues: {
-        identifier: "",
-        password: "",
-      },
-    });
+à venir ?
 
-    const fields = {
-      identifier: useField("identifier", (value) =>
-        value && value.trim() ? true : "Mail is required"
-      ),
-      password: useField("password", (value) =>
-        value && value.trim() ? true : "Password is required"
-      ),
-    };
-
-    const handleSubmit = form.handleSubmit((values) => {
-      loginRequest
-        .request("/auth/local", {
-          method: "post",
-          data: {
-            identifier: values.identifier,
-            password: values.password,
-          },
-        })
-        .then((response) => {
-          localLogin({
-            jwt: response.data.jwt,
-            user: response.data.user,
-          });
-          user.value = response.data.user;
-        });
-    });
-
-    function submitButtonValue() {
-      return loginRequest.state.value === "PENDING" ? "pending..." : "Login";
-    }
-
-    // désactiver le bouton de soumission si le formulaire est invalidate
-    // ou que la requête vers l'API est en cours de traitement
-    function submitButtonIsDisabled() {
-      return loginRequest.state.value === "PENDING" || !form.meta.value.valid;
-    }
-
-    function handleLogout() {
-      localLogout();
-      user.value = null;
-    }
-
-    return {
-      handleSubmit,
-      submitButtonValue,
-      submitButtonIsDisabled,
-      loginRequest,
-      form,
-      fields,
-      user,
-      handleLogout,
-    };
-  },
-};
-</script>
-```
+- Suspense
+- validation des formulaires avec veevalidate et la composition API
+- Vue 3 et TypeScript
