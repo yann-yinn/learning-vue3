@@ -2,6 +2,9 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/basic-data-fetching">Basic Data Fetching</router-link>
+    <router-link to="/basic-data-fetching-composable"
+      >Basic Data Fetching</router-link
+    >
   </div>
   <router-view />
 </template>

@@ -10,12 +10,17 @@ const routes = [
   {
     path: "/basic-data-fetching",
     name: "BasicDataFetching",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "BasicDataFetching" */ "../views/BasicDataFetching.vue"
+      ),
+  },
+  {
+    path: "/basic-data-fetching-composable",
+    name: "BasicDataFetchingComposable",
+    component: () =>
+      import(
+        /* webpackChunkName: "BasicDataFetchingComposable" */ "../views/BasicDataFetchingComposable.vue"
       ),
   },
 ];
